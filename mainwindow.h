@@ -6,6 +6,7 @@
 #include <QFileInfo>
 #include <QMap>
 #include <QRegExp>
+#include <QFileDialog>
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,10 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_comboBox_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     QMap<QString, QString> *devices;
@@ -31,6 +36,7 @@ private:
     void refresh_devices_win();
     void refresh_devices_mac();
     void refresh_devices_nix();
+    void update_task_list();
 
 };
 

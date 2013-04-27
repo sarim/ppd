@@ -6,12 +6,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->devices = new QMap<QString, QString>();
     refresh_devices();
 
 }
 
 void MainWindow::refresh_devices(){
     //TODO: Check platform and call corresponding function;
+
+    ui->comboBox->clear();
+    this->devices->clear();
+
     refresh_devices_nix();
 }
 
@@ -20,9 +25,6 @@ void MainWindow::refresh_devices_mac(){
 }
 
 void MainWindow::refresh_devices_nix(){
-
-    ui->comboBox->clear();
-    this->devices->clear();
 
     QDir dev_id_dir = QDir("/dev/disk/by-id/");
     QStringList dev_id_lists;
@@ -45,12 +47,18 @@ void MainWindow::refresh_devices_nix(){
         name_parts.pop_front();
         name_parts.prepend("(" + real_device + ") ");
         QString human_readable_name = name_parts.join("");
-        ui->comboBox->addItem(human_readable_name);
 
-        this->devices[real_device] = human_readable_name;
+        this->devices->insert(human_readable_name , real_device );
+        ui->comboBox->addItem(human_readable_name);
 
     }
 
+}
+
+void MainWindow::update_task_list(){
+    QString task_string = "Will Write " + ui->lineEdit->text() + " to " + this->devices->value( ui->comboBox->currentText());
+
+    ui->lbl_task_list->setText(task_string);
 }
 
 MainWindow::~MainWindow()
@@ -65,5 +73,23 @@ void MainWindow::on_pushButton_3_clicked()
 
 void MainWindow::on_pushButton_4_clicked()
 {
+    //Refresh device button
+
     this->refresh_devices();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    //open file dialog for ISO selection.
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                     "",
+                                                    tr("ISO Images (*.iso);;ALl Files (*.*)"));
+    ui->lineEdit->setText(fileName);
+    this->update_task_list();
+
+}
+
+void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
+{
+    this->update_task_list();
 }

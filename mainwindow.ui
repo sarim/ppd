@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>421</width>
+    <width>431</width>
     <height>309</height>
    </rect>
   </property>
@@ -137,18 +137,10 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>421</width>
-     <height>20</height>
+     <width>431</width>
+     <height>22</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

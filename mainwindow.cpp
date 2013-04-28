@@ -37,9 +37,31 @@ void MainWindow::refresh_devices_win(){
 }
 
 void MainWindow::refresh_devices_mac(){
-    //TODO: need to implement
-    QMessageBox::critical (this,"Not Implemented","Go away. PPD doesn't support your OS");
-    throw "Platform not supported" ;
+    
+    QDir dev_id_dir = QDir("/dev/");
+    QStringList dev_id_lists;
+    dev_id_lists = dev_id_dir.entryList(QStringList("rdisk*"),QDir::System);
+    
+    QString usb_list_raw = this->run_and_get_stdout((QStringList() << "system_profiler" << "SPUSBDataType"));
+    
+    QList<QStringList> usb_devices = this->regex_helper("BSD Name: (\\w+)\n\\s+Product ID: (\\w+)\n\\s+Vendor ID: (\\w+)([^\n]+)",usb_list_raw);
+    
+    for (int p = 0; p < usb_devices.size(); ++p){
+        QStringList usb_device = usb_devices[p];
+        QString real_device = "/dev/r" + usb_device[1];
+        QString human_readable_name = "(" + usb_device[1] + ") " + usb_device[3] + ":" + usb_device[2] + usb_device[4];
+        this->devices->insert(real_device, human_readable_name);
+        ui->comboBox->addItem(human_readable_name);
+    }
+    
+
+    //TODO: implement all device in OSX. Need to change regex to xml output of system_profiler with SPSerialATADataType
+    if (ui->checkBox->isChecked())
+    {
+        QMessageBox::information (this,"Not Implemented","Showing all devices is not supported in Mac OSX");
+    }
+    
+    
 }
 
 void MainWindow::refresh_devices_nix(){
@@ -66,15 +88,38 @@ void MainWindow::refresh_devices_nix(){
         name_parts.prepend("(" + real_device + ") ");
         QString human_readable_name = name_parts.join("");
 
-        this->devices->insert(human_readable_name , real_device );
+        this->devices->insert(real_device, human_readable_name);
         ui->comboBox->addItem(human_readable_name);
 
     }
 
 }
 
+QList<QStringList> MainWindow::regex_helper(QString pattern, QString str){
+    QRegExp rx(pattern);
+    QList<QStringList> list;
+    int pos = 0;
+
+    while ((pos = rx.indexIn(str, pos)) != -1) {
+        list << rx.capturedTexts();
+        pos += rx.matchedLength();
+    }
+    
+    return list;
+}
+
+QString MainWindow::run_and_get_stdout(QStringList arguments){
+    QProcess exec;
+    QStringList sh_arg;
+    sh_arg << "-c" << arguments.join(" ");
+    exec.start("/bin/sh",sh_arg);
+    exec.waitForFinished();
+    return QString(exec.readAllStandardOutput());
+    
+}
+
 void MainWindow::update_task_list(){
-    QString task_string = "Will Write " + ui->lineEdit->text() + " to " + this->devices->value( ui->comboBox->currentText());
+    QString task_string = "Will Write " + ui->lineEdit->text() + " to " + this->devices->key( ui->comboBox->currentText());
 
     ui->lbl_task_list->setText(task_string);
 }

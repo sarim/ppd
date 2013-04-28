@@ -74,7 +74,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Estimated Time remaining :</string>
+       <string>Time Elapsed : 0:00:00		Estimated Time remaining : 0:00:00			999MB/s</string>
       </property>
      </widget>
     </item>

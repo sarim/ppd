@@ -33,13 +33,13 @@ void MainWindow::refresh_devices(){
 void MainWindow::refresh_devices_win(){
     //TODO: need to implement
     QMessageBox::critical (this,"Not Implemented","Go away. PPD doesn't support your OS");
-    qApp->quit();
+    throw "Platform not supported" ;
 }
 
 void MainWindow::refresh_devices_mac(){
     //TODO: need to implement
     QMessageBox::critical (this,"Not Implemented","Go away. PPD doesn't support your OS");
-    qApp->quit();
+    throw "Platform not supported" ;
 }
 
 void MainWindow::refresh_devices_nix(){

@@ -8,6 +8,8 @@
 #include <QRegExp>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDebug>
+#include <QProcess>
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +42,8 @@ private:
     void refresh_devices_mac();
     void refresh_devices_nix();
     void update_task_list();
+	QString run_and_get_stdout(QStringList arguments);
+	QList<QStringList> regex_helper(QString pattern, QString text);
 
 };
 

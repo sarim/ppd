@@ -6,5 +6,5 @@ Pretty Powerful Dump: GUI for dd (disk dump) for easily writing ISO to USB devic
 
 #### In early stage of development. Check back later.
 
-### Licence:
+## Licence:
 Licensed under Mozilla Public License 1.1 ("MPL"), an open source/free software license.

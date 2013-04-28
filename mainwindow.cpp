@@ -17,11 +17,29 @@ void MainWindow::refresh_devices(){
     ui->comboBox->clear();
     this->devices->clear();
 
-    refresh_devices_nix();
+    #ifdef Q_WS_MAC
+     refresh_devices_mac();
+    #endif
+
+    #ifdef Q_WS_WIN
+     refresh_devices_win();
+    #endif
+
+    #ifdef Q_WS_X11
+     refresh_devices_nix();
+    #endif
+}
+
+void MainWindow::refresh_devices_win(){
+    //TODO: need to implement
+    QMessageBox::critical (this,"Not Implemented","Go away. PPD doesn't support your OS");
+    QApplication::quit();
 }
 
 void MainWindow::refresh_devices_mac(){
     //TODO: need to implement
+    QMessageBox::critical (this,"Not Implemented","Go away. PPD doesn't support your OS");
+    QApplication::quit();
 }
 
 void MainWindow::refresh_devices_nix(){
@@ -92,4 +110,9 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 {
     this->update_task_list();
+}
+
+void MainWindow::on_checkBox_stateChanged(int arg1)
+{
+    this->refresh_devices();
 }

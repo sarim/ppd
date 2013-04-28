@@ -7,6 +7,7 @@
 #include <QMap>
 #include <QRegExp>
 #include <QFileDialog>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +29,8 @@ private slots:
     void on_pushButton_clicked();
 
     void on_comboBox_currentIndexChanged(const QString &arg1);
+
+    void on_checkBox_stateChanged(int arg1);
 
 private:
     Ui::MainWindow *ui;

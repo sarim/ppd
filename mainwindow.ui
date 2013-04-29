@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>431</width>
+    <width>703</width>
     <height>309</height>
    </rect>
   </property>
@@ -116,17 +116,30 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="0">
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="text">
-       <string>Write</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1" colspan="2">
+    <item row="6" column="2">
      <widget class="QPushButton" name="pushButton_4">
       <property name="text">
        <string>Refresh Device List</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Write to Device</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Read from Device</string>
       </property>
      </widget>
     </item>
@@ -137,8 +150,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>431</width>
-     <height>22</height>
+     <width>703</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>
